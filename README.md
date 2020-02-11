@@ -1,10 +1,10 @@
 The instructions below are how to run the ORIAN platform on Imperial's heterogeneous architecture with access to Maxeler DFE nodes and multi-CPU nodes. To run on another platform, add modified config files to platform/resource_managers/swagger_server/config_files with IP addresses of local machines, and change the paths in the below commands as necessary. 
 
 ********************************************************************************
-## To run prototype platform 1 (one heterogeneous node with CPU and DFE children):
+### To run prototype platform 1 (one heterogeneous node with CPU and DFE children):
 ********************************************************************************
 
-### 1. Run the database
+#### 1. Run the database
 
 cd /platform/Docker
 
@@ -26,7 +26,7 @@ cd platform/database/
 
 python3 setup_dbs.py platform1     
 
-## 2. Run the heterogeneous node manager
+#### 2. Run the heterogeneous node manager
 
 cd /platform/Docker
 
@@ -36,7 +36,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type HNodeResourceManager --cfg swagger_server/config_files/hnode_cfg.json -p 8081
 
-## 3. Run the CPU manager
+#### 3. Run the CPU manager
 
 cd /platform/Docker
 
@@ -46,7 +46,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type CPUResourceManager --cfg swagger_server/config_files/cpu_cfg.json -p 8082
 
-## 4.  Run the DFE manager
+#### 4.  Run the DFE manager
 
 cd /platform/Docker
 
