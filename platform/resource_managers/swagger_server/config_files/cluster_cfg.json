@@ -1,0 +1,7 @@
+{
+	"name": "my_cluster_rm",
+	"url": "http://cccad2.doc.ic.ac.uk:8087/jvandebon/rm_prototype/2.0",
+	"parentUrl": "",
+	"dbUrl": "http://cccad2.doc.ic.ac.uk:8080",
+	"rmType": "cluster"
+}

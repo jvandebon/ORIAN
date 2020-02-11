@@ -1,0 +1,375 @@
+---
+swagger: "2.0"
+info:
+  description: "Prototype of the RM API "
+  version: "2.0"
+  title: "RM Prototype"
+host: "virtserver.swaggerhub.com"
+basePath: "/jvandebon/rm_prototype/2.0"
+tags:
+- name: "managers"
+- name: "tasks"
+- name: "impls"
+- name: "models"
+schemes:
+- "https"
+- "http"
+paths:
+  /managers/register:
+    put:
+      tags:
+      - "managers"
+      summary: "Registers a new child RM"
+      operationId: "register_child_rm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "child"
+        description: "child RM specs"
+        required: true
+        schema:
+          $ref: "#/definitions/child"
+      responses:
+        200:
+          description: "Successful registration"
+          schema:
+            type: "object"
+            properties:
+              rmId:
+                type: "string"
+                example: "nodeX.cpu0"
+      x-swagger-router-controller: "swagger_server.controllers.managers_controller"
+  /managers/available:
+    get:
+      tags:
+      - "managers"
+      summary: "Checks for available resources"
+      operationId: "check_available"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful availability check"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                rmId:
+                  type: "string"
+                  example: "hnode0.cpu0"
+                available:
+                  type: "boolean"
+                  example: true
+      x-swagger-router-controller: "swagger_server.controllers.managers_controller"
+  /tasks:
+    get:
+      tags:
+      - "tasks"
+      summary: "Returns all supported tasks"
+      operationId: "get_tasks"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful tasks request"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                taskName:
+                  type: "string"
+                  example: "adp"
+                inputParams:
+                  type: "array"
+                  items:
+                    $ref: "#/definitions/tasks_inputParams"
+      x-swagger-router-controller: "swagger_server.controllers.tasks_controller"
+  /tasks/config:
+    get:
+      tags:
+      - "tasks"
+      summary: "Returns optimal configuration"
+      operationId: "optimal_config"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "task"
+        description: "Function to be executed with input parameters and objectives"
+        required: true
+        schema:
+          $ref: "#/definitions/task"
+      responses:
+        200:
+          description: "Successful config determination"
+          schema:
+            type: "object"
+            properties:
+              impl:
+                $ref: "#/definitions/inline_response_200_3_impl"
+              config:
+                $ref: "#/definitions/inline_response_200_3_config"
+      x-swagger-router-controller: "swagger_server.controllers.tasks_controller"
+  /tasks/execute:
+    post:
+      tags:
+      - "tasks"
+      summary: "Executes a task"
+      operationId: "execute"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "task"
+        description: "Function to execute with configuration and implementation"
+        required: true
+        schema:
+          $ref: "#/definitions/task_1"
+      responses:
+        200:
+          description: "Successful execution"
+      x-swagger-router-controller: "swagger_server.controllers.tasks_controller"
+  /impls:
+    get:
+      tags:
+      - "impls"
+      summary: "Returns all supported impls"
+      operationId: "get_impls"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful impls request"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                taskName:
+                  type: "string"
+                  example: "adp"
+                implName:
+                  type: "string"
+                  example: "dfe_compute"
+                implRM:
+                  type: "string"
+                  example: "hnode0.dfe0"
+      x-swagger-router-controller: "swagger_server.controllers.impls_controller"
+  /models:
+    get:
+      tags:
+      - "models"
+      summary: "Returns all performance models"
+      operationId: "get_models"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful models request"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                impl:
+                  $ref: "#/definitions/inline_response_200_3_impl"
+                config:
+                  $ref: "#/definitions/inline_response_200_3_config"
+                coefs:
+                  type: "array"
+                  items:
+                    type: "number"
+                    example: 0.5
+      x-swagger-router-controller: "swagger_server.controllers.models_controller"
+  /models/build:
+    post:
+      tags:
+      - "models"
+      summary: "Builds a performance model"
+      operationId: "build_model"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "task"
+        description: "Task and implentation to build model for"
+        required: true
+        schema:
+          $ref: "#/definitions/task_2"
+      responses:
+        200:
+          description: "Successfully built models"
+      x-swagger-router-controller: "swagger_server.controllers.models_controller"
+definitions:
+  tasksexecute_inputParams:
+    properties:
+      param:
+        type: "string"
+        example: "size"
+      value: {}
+  tasksexecute_impl:
+    properties:
+      implName:
+        type: "string"
+        example: "cpu_compute"
+      taskName:
+        type: "string"
+        example: "adp"
+      implRM:
+        type: "string"
+        example: "hnode0.cpu0"
+  inline_response_200_5:
+    properties:
+      impl:
+        $ref: "#/definitions/inline_response_200_3_impl"
+      config:
+        $ref: "#/definitions/inline_response_200_3_config"
+      coefs:
+        type: "array"
+        items:
+          type: "number"
+          example: 0.5
+  task_2:
+    type: "object"
+    required:
+    - "taskName"
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      implName:
+        type: "string"
+        example: "cpu_compute"
+      configuration: {}
+  inline_response_200_3_impl:
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      implName:
+        type: "string"
+        example: "cpu_compute"
+      implRM:
+        type: "string"
+        example: "hnode0.cpu0"
+    example:
+      implName: "cpu_compute"
+      taskName: "adp"
+      implRM: "hnode0.cpu0"
+  task_1:
+    type: "object"
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      inputParams:
+        type: "array"
+        items:
+          $ref: "#/definitions/tasksexecute_inputParams"
+      config:
+        $ref: "#/definitions/inline_response_200_3_config"
+      impl:
+        $ref: "#/definitions/tasksexecute_impl"
+      problemSize:
+        type: "integer"
+        example: 1000
+      profile:
+        type: "boolean"
+        example: true
+  task:
+    type: "object"
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      objectives: {}
+      problemSize:
+        type: "integer"
+        example: 1000
+  inline_response_200_1:
+    properties:
+      rmId:
+        type: "string"
+        example: "hnode0.cpu0"
+      available:
+        type: "boolean"
+        example: true
+  inline_response_200:
+    properties:
+      rmId:
+        type: "string"
+        example: "nodeX.cpu0"
+    example:
+      rmId: "nodeX.cpu0"
+  inline_response_200_2:
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      inputParams:
+        type: "array"
+        items:
+          $ref: "#/definitions/tasks_inputParams"
+  inline_response_200_3:
+    properties:
+      impl:
+        $ref: "#/definitions/inline_response_200_3_impl"
+      config:
+        $ref: "#/definitions/inline_response_200_3_config"
+    example:
+      impl:
+        implName: "cpu_compute"
+        taskName: "adp"
+        implRM: "hnode0.cpu0"
+      config:
+        n: 4
+  inline_response_200_4:
+    properties:
+      taskName:
+        type: "string"
+        example: "adp"
+      implName:
+        type: "string"
+        example: "dfe_compute"
+      implRM:
+        type: "string"
+        example: "hnode0.dfe0"
+  inline_response_200_3_config:
+    properties:
+      n:
+        type: "integer"
+        example: 4
+    example:
+      n: 4
+  tasks_inputParams:
+    properties:
+      param:
+        type: "string"
+        example: "size"
+      type:
+        type: "string"
+        example: "string"
+  child:
+    type: "object"
+    properties:
+      url:
+        type: "string"
+        example: "http://childurl.com"
+      rmType:
+        type: "string"
+        example: "cpu"

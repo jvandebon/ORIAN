@@ -1,0 +1,1 @@
+Python libraries built using C++ with Boost for the supported applications. Each supported task and target has an  associated construct, compute, and destruct method.  These libraries are imported by the resource managers (Python) as necessary to execute the supported tasks. 

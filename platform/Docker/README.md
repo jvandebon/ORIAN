@@ -1,0 +1,1 @@
+Docker environment for running the ORIAN resource management platform. Use ./run-orian.sh to start container.

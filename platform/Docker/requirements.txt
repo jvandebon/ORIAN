@@ -1,0 +1,15 @@
+:q#requirements
+connexion == 1.1.15
+python_dateutil == 2.6.0
+setuptools >= 21.0.0
+numpy == 1.14.5
+scipy == 1.1.0
+
+# test-requirements
+flask_testing==0.6.1
+coverage>=4.0.3
+nose>=1.3.7
+pluggy>=0.3.1
+py>=1.4.31
+randomize>=0.13
+

@@ -1,0 +1,7 @@
+{
+	"name": "my_cpu_rm",
+	"url": "http://maia01.doc.ic.ac.uk:8087/jvandebon/rm_prototype/2.0",
+	"parentUrl": "http://cccad2.doc.ic.ac.uk:8081/jvandebon/rm_prototype/2.0",
+	"dbUrl": "http://cccad2.doc.ic.ac.uk:8080",
+	"rmType": "cpu1_"
+}

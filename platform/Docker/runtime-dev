@@ -1,0 +1,77 @@
+#!/bin/bash
+
+################################################ set local configuration
+_USER=$1
+_USER_ID=$2
+
+# prevent passing arguments to children
+set --
+
+useradd --shell /bin/bash -u $_USER_ID -G sudo -o -c "" -m $_USER
+echo "$_USER:$_USER" | chpasswd
+echo "export PS1='\e[0;35morian-dev\e[0;0m:\e[0;32m$\w$ \e[m'" >> /home/$_USER/.bashrc
+echo "alias sudo='sudo -E'" >> /home/$_USER/.bashrc
+
+# check if running on imperial machines
+if [ -d /vol/cc ]; then
+
+# License Server
+export LM_LICENSE_FILE=27000@chicken.doc.ic.ac.uk
+export XILINXD_LICENSE_FILE=/vol/cc/opt/Xilinx/aurora/
+
+# max compiler
+#source /vol/cc/opt/maxeler/maxcompiler-2018.1/settings.sh
+source /vol/cc/opt/maxeler/maxcompiler-2016.1.1/settings.sh 
+if [ -d /opt/maxeler/maxeleros/ ]; then
+   echo 'export MAXELEROSDIR=/opt/maxeler/maxeleros' >> /home/$_USER/.bashrc
+   echo 'export LD_LIBRARY_PATH=${MAXELEROSDIR}/lib:${LD_LIBRARY_PATH}' >> /home/$_USER/.bashrc
+   echo 'export PATH=$MAXELEROSDIR/utils:$PATH' >> /home/$_USER/.bashrc
+   if [ -e /dev/maxeler0 ]; then
+      echo "setting up MAX3..."
+      echo '$MAXELEROSDIR/daemon/maxelerosd' >> /home/$_USER/.bashrc
+   fi
+   if [ -d /dev/infiniband ]; then
+       echo "setting up MAX4..."   
+       echo 1 > /proc/sys/net/ipv4/ip_forward
+       ip link add ib0 type dummy
+       ip link add ib1 type dummy       
+       ip address add 192.168.0.0/25 broadcast 192.168.0.127 dev ib0
+       ip address add 192.168.0.129/25 dev ib1
+       #ip address add 192.168.0.0/25 broadcast 192.168.0.127 dev ib0
+       #ip address add 192.168.0.0/25 broadcast 192.168.0.127 dev ib0
+       #ip address add 192.168.0.129 broadcast 192.168.0.255 dev ib1
+       ip link set ib0 up
+       ip link set ib1 up
+       route add 192.168.0.1 gw 172.17.42.1
+       route add 192.168.0.10 gw 172.17.42.1
+       route add 192.168.0.138 gw 172.17.42.1       
+       route add 192.168.0.11 gw 172.17.42.1
+       route add 192.168.0.139 gw 172.17.42.1
+       route add 192.168.0.12 gw 172.17.42.1
+       route add 192.168.0.140 gw 172.17.42.1
+
+       iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
+       export SLIC_CONF="default_engine_resource=orian2^192.168.0.1;disable_pcc=true"
+   fi   
+else
+   nohup Xvfb :99 > /dev/null 2>&1 &
+   export DISPLAY=:99
+fi
+
+#quartus
+echo 'export QUARTUS_ROOTDIR="/vol/cc/opt/altera/13.1/quartus"' >> /home/$_USER/.bashrc
+
+echo 'export PATH=${PATH}:/vol/cc/opt/altera/13.1/quartus/bin' >> /home/$_USER/.bashrc
+
+
+#xilinx
+echo 'source /vol/cc/opt/Xilinx/13.3/ISE_DS/settings64.sh' >> /home/$_USER/.bashrc
+fi
+
+
+
+setuser $_USER bash
+
+
+
+

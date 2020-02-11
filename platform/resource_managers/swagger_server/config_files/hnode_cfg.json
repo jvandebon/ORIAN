@@ -1,0 +1,7 @@
+{
+	"name": "hnode_rm",
+	"url": "http://cccad2.doc.ic.ac.uk:8081/jvandebon/rm_prototype/2.0",
+	"parentUrl": "",
+	"dbUrl": "http://cccad2.doc.ic.ac.uk:8080",
+	"rmType": "hnode"
+}
