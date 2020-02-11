@@ -1,8 +1,11 @@
 ## Resource Manager Implementations Located  in : ./swagger_server
 
 resource_manager.py - basic object for all resource manager types
+
 cpu_resource_manager.py / dfe_resource_manager.py -- examples of resource managers for CPU or DFE platforms  supporting specific tasks and implementations
+
 hnode_resource_manager.py -- example of a heterogeneous node resource manager
+
 cluster_resource_manager.py -- exampels of a cluster resource manager
 
 # Swagger generated server
