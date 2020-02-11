@@ -58,10 +58,10 @@ python3 -m swagger_server --rm_type DFEResourceManager --cfg swagger_server/conf
 
 
 **********************************************************************
-## To run prototype platform 2 (cluster with 2 heterogeneous nodes):
+### To run prototype platform 2 (cluster with 2 heterogeneous nodes):
 **********************************************************************
 
-## 1. Run the database
+#### 1. Run the database
 
 cd /platform/Docker
 
@@ -83,7 +83,7 @@ cd platform/database/
 
 python3 setup_dbs.py platform2
 
-## 2. Run the cluster manager:
+#### 2. Run the cluster manager:
 
 cd /platform/Docker
 
@@ -93,7 +93,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type ClusterResourceManager --cfg swagger_server/config_files/cluster_cfg.json -p 8087
 
-## 3. Run both heterogeneous node managers
+#### 3. Run both heterogeneous node managers
 
 cd /platform/Docker
 
@@ -113,7 +113,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type HNodeResourceManager --cfg swagger_server/config_files/maia_hnode_cfg.json -p 8084
 
-## 4. Run Node 1 CPU manager
+#### 4. Run Node 1 CPU manager
 
 cd /platform/Docker
 
@@ -123,7 +123,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type CPUResourceManager --cfg swagger_server/config_files/maxnode_cpu_cfg.json -p 8082
 
-## 5. Run Node 1 DFE manager
+#### 5. Run Node 1 DFE manager
 
 cd /platform/Docker
 
@@ -133,7 +133,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type DFEResourceManager --cfg swagger_server/config_files/maxnode_dfe_cfg.json -p 8083
 
-## 6. Run Node 2 CPU manager
+#### 6. Run Node 2 CPU manager
 
 cd /platform/Docker
 
@@ -143,7 +143,7 @@ cd platform/resource_managers
 
 python3 -m swagger_server --rm_type CPUResourceManager --cfg swagger_server/config_files/maia_cpu_cfg.json -p 8085
 
-## 7. Run Node 2 DFE manager
+#### 7. Run Node 2 DFE manager
 
 cd /platform/Docker
 
