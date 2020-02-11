@@ -1,1 +1,1 @@
-The ORIAN python library. Client programs can import orian, configure it to connect to the top level resource manager in their system, and instruct the system to execute tasks.
+The ORIAN python library. Client programs can import orian, configure it to connect to the top level resource manager in their system, and instruct the system to execute tasks. See ../client for examples.
