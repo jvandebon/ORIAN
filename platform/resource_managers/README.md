@@ -10,7 +10,7 @@ cluster_resource_manager.py - example of a cluster resource manager
 
 ### Autoscaling rules (from inspecting 'best' graph):
 
-In the top level resource manager (hnode_resource_manager or cluster_resource_manager), manually input autoscaling rules. For example, max/min_cpus, max/min_dfes, inc/dec_t, as_window, candidate workers (wodker_types),  worker_pool, start_group, etc. See the source files for all inputs. 
+In the top level resource manager (hnode_resource_manager or cluster_resource_manager), manually input autoscaling rules. For example, max/min_cpus, max/min_dfes, inc/dec_t, as_window, candidate workers (worker_types),  worker_pool, start_group, etc. See the source files for all inputs. 
 
 ### Performance modelling and profiling:
 
