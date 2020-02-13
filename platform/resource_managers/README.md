@@ -8,6 +8,15 @@ hnode_resource_manager.py - example of a heterogeneous node resource manager
 
 cluster_resource_manager.py - example of a cluster resource manager
 
+### 'Best'graph inputs:
+
+In the top level resource manager (hnode_resource_manager or cluster_resource_manager), manually input autoscaling rules. For example, max/min_cpus, max/min_dfes, inc/dec_t, as_window, candidate workers (wodker_types),  worker_pool, start_group, etc. See the source files for all inputs. 
+
+### Performance modelling and profiling:
+
+All functions to build performancemodels are in the low level resource managers (dfe_resource_manager and cpu_resource_manager), specified for all supported tasks. To build performance models, profiles need to be stored in the database. To collect profiles for a specific function, use the ../client/collect_profiles.py application.
+
+
 # Swagger generated server
 
 ## Overview
