@@ -1,4 +1,5 @@
-## The ORIAN Heterogeneous Resource Management Platform #### [FPT '19 Paper](https://ieeexplore.ieee.org/document/8825001)
+## The ORIAN Heterogeneous Resource Management Platform 
+#### [FPT '19 Paper](https://ieeexplore.ieee.org/document/8825001)
 
 The instructions below are how to run the ORIAN platform on Imperial's heterogeneous architecture with access to Maxeler DFE nodes and multi-CPU nodes. To run on another platform, add modified config files to platform/resource_managers/swagger_server/config_files with IP addresses of local machines, and change the paths in the below commands as necessary. 
 
